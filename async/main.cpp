@@ -1,6 +1,5 @@
 #include <thread>
 #include <functional>
-#include <iostream>
 
 #include "async.h"
 

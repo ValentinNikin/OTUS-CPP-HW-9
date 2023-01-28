@@ -9,7 +9,6 @@ include(ProjectDependencies)
 include(CompilerOptions)
 
 add_subdirectory(async)
-add_subdirectory(src)
 
 include(Packaging)
 

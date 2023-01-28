@@ -1,5 +1,6 @@
 
 set(LIBRARY_NAME async)
+set(EXAMPLE_EXECUTABLE_NAME otus-9-example)
 
 set(MAJOR_VERSION 1)
 set(MINOR_VERSION 0)
@@ -11,6 +12,7 @@ endif()
 
 configure_file(src/version.h.in version.h)
 
+# Configure library
 add_library(
         ${LIBRARY_NAME} SHARED
 
@@ -49,6 +51,7 @@ add_library(
         src/utils/Utils.cpp
         )
 
+
 set_target_properties(${LIBRARY_NAME} PROPERTIES
         VERSION ${MAJOR_VERSION}.${MINOR_VERSION}.${BUILD_VERSION}
         SOVERSION 1
@@ -75,6 +78,29 @@ target_include_directories(
         ${PROJECT_DEPS_INCLUDES}
 )
 
+# Configure executable
+add_executable(${EXAMPLE_EXECUTABLE_NAME} main.cpp)
+
+set_target_properties(
+        ${EXAMPLE_EXECUTABLE_NAME} PROPERTIES
+        CXX_STANDARD 17
+        CXX_STANDARD_REQUIRED ON
+)
+
+target_include_directories(
+        ${EXAMPLE_EXECUTABLE_NAME}
+        PRIVATE
+        ${PROJECT_DEPS_INCLUDES}
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/
+)
+
+target_link_libraries(
+        ${EXAMPLE_EXECUTABLE_NAME}
+        PRIVATE
+        ${LIBRARY_NAME}
+        ${PROJECT_DEPS}
+)
+
 if (BUILD_TESTS)
     enable_testing()
     add_subdirectory(unit-tests)
@@ -85,3 +111,5 @@ include(GNUInstallDirs)
 install(TARGETS ${LIBRARY_NAME}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+install(TARGETS ${EXAMPLE_EXECUTABLE_NAME} RUNTIME DESTINATION bin)
