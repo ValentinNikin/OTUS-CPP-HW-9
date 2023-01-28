@@ -3,13 +3,11 @@ project(otus-cpp-hw-9)
 
 option(BUILD_TESTS "Build unit-tests" OFF)
 
+set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
+
 set(MAJOR_VERSION 0)
 set(MINOR_VERSION 0)
-if(DEFINED ENV{PATCH_VERSION})
-    set(BUILD_VERSION $ENV{PATCH_VERSION})
-else()
-    set(BUILD_VERSION 0)
-endif()
+set(BUILD_VERSION ${PATCH_VERSION})
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
