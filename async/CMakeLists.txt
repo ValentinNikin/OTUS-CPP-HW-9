@@ -2,14 +2,6 @@
 set(LIBRARY_NAME async)
 set(EXAMPLE_EXECUTABLE_NAME otus-9-example)
 
-set(MAJOR_VERSION 1)
-set(MINOR_VERSION 0)
-if(DEFINED ENV{PATCH_VERSION})
-    set(BUILD_VERSION $ENV{PATCH_VERSION})
-else()
-    set(BUILD_VERSION 0)
-endif()
-
 configure_file(src/version.h.in version.h)
 
 # Configure library
